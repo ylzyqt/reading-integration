@@ -9,4 +9,4 @@
 
 ####  [重构列表](https://github.com/ylzyqt/reading-integration/tree/master/reconsitution/src/main/resources/list.md)
 
-####  [在对象之间搬移特性](https://github.com/ylzyqt/reading-integration/tree/master/reconsitution/src/main/resources/list.md)
+####  [在对象之间搬移特性](https://github.com/ylzyqt/reading-integration/tree/master/reconsitution/src/main/resources/object.md)
