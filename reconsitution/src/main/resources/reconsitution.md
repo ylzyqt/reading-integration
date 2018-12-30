@@ -10,3 +10,7 @@
 ####  [重构列表](https://github.com/ylzyqt/reading-integration/tree/master/reconsitution/src/main/resources/list.md)
 
 ####  [在对象之间搬移特性](https://github.com/ylzyqt/reading-integration/tree/master/reconsitution/src/main/resources/object.md)
+
+####  [重新组织数据](https://github.com/ylzyqt/reading-integration/tree/master/reconsitution/src/main/resources/data.md)
+
+####  [简化表达式](https://github.com/ylzyqt/reading-integration/tree/master/reconsitution/src/main/resources/method.md)
