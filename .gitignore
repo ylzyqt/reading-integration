@@ -11,3 +11,4 @@
 *.log
 out
 *.versionsBackup
+_book/
