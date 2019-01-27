@@ -11,4 +11,3 @@
     * [1.7：简化表达式](reconsitution/method.md)
 * [2. 关于工作的一些总结](worksummary/worksummary.md)
     * [2.1：关于工作的一些忠告](worksummary/advice.md)
-
