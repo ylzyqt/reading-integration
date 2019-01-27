@@ -9,4 +9,6 @@
     * [1.5：在对象之间搬移特性](reconsitution/object.md)
     * [1.6：重新组织数据](reconsitution/data.md)
     * [1.7：简化表达式](reconsitution/method.md)
+* [2. 关于工作的一些总结](worksummary/worksummary.md)
+    * [2.1：关于工作的一些忠告](worksummary/advice.md)
 
