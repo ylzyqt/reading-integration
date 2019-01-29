@@ -2,7 +2,7 @@
 
 ## 重构列表
 
-#### 提炼函数(Extract Method)   
+#### 1. 提炼函数(Extract Method)   
 
 ```
  1. 如果每个函数的粒度都很小，那么被复用的可能性就很高
@@ -15,13 +15,17 @@
         当成变量传递给目标函数
 ```
 
-#### 内联函数(Inner Method)
+
+
+#### 2. 内联函数(Inner Method)
 
 ```
  1. 如果内部代码和函数名称同样清晰易懂，并且不具备可重用性，那么可以去掉这个函数   
 ```
 
-#### 内联临时变量(Inner Temp)
+
+
+#### 3. 内联临时变量(Inner Temp)
 
 ```
  1. 将对该变量的引用动作，替换为它赋值的那个表达式自身 
@@ -31,7 +35,9 @@
     return anOrder.basePrice > 1000
 ```
 
-#### 以查询取代临时变量(Replace Temp With Query)   
+
+
+#### 4.以查询取代临时变量(Replace Temp With Query)   
 
 ```
  1. 将表达式提炼到独立的函数中去      
@@ -45,25 +51,33 @@
  3. 更多的是使用提炼函数，因为可能被重用.
 ```
 
-#### 分解临时变量(Split Temporary Variable)
+
+
+#### 5. 分解临时变量(Split Temporary Variable)
 
 ```
  1. 针对每次赋值，创造一个独立的，对应的临时变量
 ```
 
-#### 移除对参数的赋值(Remove Assignments to Parameters)      
+
+
+#### 6. 移除对参数的赋值(Remove Assignments to Parameters)      
 
 ```
  1. 不要对参数的值进行变更,这让人迷惑   
 ```
 
-#### 以函数对象取代函数(Replace Method with Method Object)       
+
+
+#### 7. 以函数对象取代函数(Replace Method with Method Object)       
 
 ```
  1. 把功能移动到具体的类里面去，减少外部代码的复杂性         
 ```
 
-#### 替换算法(Substitute Algorithm)
+
+
+#### 8. 替换算法(Substitute Algorithm)
 
 ```
  1. 将函数本体替换为另一个算法

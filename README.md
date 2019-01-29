@@ -9,4 +9,5 @@
   - [1.5：在对象之间搬移特性](reconsitution/object.md)
   - [1.6：重新组织数据](reconsitution/data.md)
   - [1.7：简化表达式](reconsitution/method.md)
+  - [1.8: 简化函数调用](reconsitution/simplemethod.md)
 
