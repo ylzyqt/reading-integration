@@ -20,7 +20,7 @@
     * [3.4：单例模式❌](design/singletom.md)
     * [3.5：多例模式❌](design/multiton.md)
     * [3.6：建造模式](design/builder.md)
-    * [3.7：原始模式❌](design/prototype.md)
+    * [3.7：原始模式](design/prototype.md)
     * [3.8：适配器模式❌](design/adapter.md)
     * [3.9：缺省适配模式❌](design/defaultAdapter.md)
     * [3.10：合成模式❌](design/composite.md)
