@@ -8,7 +8,9 @@
 
 ```
 在一个业务系统中，系统A负责一个基础数据库的维护,里面有数据表
-users,departments,compays表，这些表的内容一旦发生变更，需要通知到关系的其他系统,现有的模式下，就是发送变更消息到kafka,其他业务来监听kafka消息,简单的可以用如下的观察者模式来表示
+users,departments,compays表，这些表的内容一旦发生变更，需要通知到关系的其他系统,
+现有的模式下，就是发送变更消息到kafka,其他业务来监听kafka消息,简单的可以用如下的
+观察者模式来表示
 ```
 
 
@@ -25,30 +27,29 @@ public abstract class TableEvent {
     abstract String tableName();
 
     void addObserver(TableObserver tableObserver) {
-        List<TableObserver> tableObservers = map.get(tableName());
-        if (tableObservers == null) {
-            tableObservers = new ArrayList<>();
-        }
+        List<TableObserver> tableObservers = getObservers();
         tableObservers.add(tableObserver);
         map.put(tableName(), tableObservers);
     }
 
     void removeObserver(TableObserver tableObserver) {
-        List<TableObserver> tableObservers = map.get(tableName());
-        if (tableObservers == null) {
-            return;
-        }
+        List<TableObserver> tableObservers = getObservers();
         tableObservers.remove(tableObserver);
         map.put(tableName(), tableObservers);
 
     }
 
     void notifyTableEvent(String event) {
+        List<TableObserver> tableObservers = getObservers();
+        tableObservers.forEach(x -> x.revive(event));
+    }
+
+    List<TableObserver> getObservers() {
         List<TableObserver> tableObservers = map.get(tableName());
         if (tableObservers == null) {
-            return;
+            tableObservers = new ArrayList<>();
         }
-        tableObservers.forEach(x -> x.revive(event));
+        return tableObservers;
     }
 }
 
