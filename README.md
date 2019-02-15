@@ -23,7 +23,7 @@
     * [3.7：原始模式](design/prototype.md)
     * [3.8：适配器模式❌](design/adapter.md)
     * [3.9：缺省适配模式❌](design/defaultAdapter.md)
-    * [3.10：合成模式❌](design/composite.md)
+    * [3.10：合成模式](design/composite.md)
     * [3.11：装饰模式](design/decorator.md)
     * [3.12：代理模式❌](design/proxy.md)
     * [3.13：享元模式❌](design/flyweight.md)
