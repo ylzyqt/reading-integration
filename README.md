@@ -18,7 +18,7 @@
     * [3.2：工厂方法❌](design/factory.md)
     * [3.3：抽象工厂❌](design/abstractfactory.md)
     * [3.4：单例模式](design/singletom.md)
-    * [3.5：多例模式❌](design/multiton.md)
+    * [3.5：多例模式](design/multiton.md)
     * [3.6：建造模式](design/builder.md)
     * [3.7：原始模式](design/prototype.md)
     * [3.8：适配器模式](design/adapter.md)
