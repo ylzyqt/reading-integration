@@ -33,7 +33,7 @@
     * [3.17：策略模式](design/strategy.md)
     * [3.18：模版方法](design/template.md)
     * [3.19：观察者模式](design/observer.md)
-    * [3.20：迭代子模式❌](design/iterator.md)
+    * [3.20：迭代子模式](design/iterator.md)
     * [3.21：责任链模式](design/chain.md)
     * [3.22：命令模式❌](design/command.md)
     * [3.23：备忘录模式❌](design/memento.md)
