@@ -127,3 +127,7 @@ public class DepartmentTableChangeEventServiceImpl extends TableChangeEventServi
 
 ```
 
+```
+优点: 当实现类非常多的时候,可以非常显著的减少实现类里面的代码
+```
+
