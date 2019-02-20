@@ -36,7 +36,7 @@
     * [3.20：迭代子模式](design/iterator.md)
     * [3.21：责任链模式](design/chain.md)
     * [3.22：命令模式❌](design/command.md)
-    * [3.23：备忘录模式❌](design/memento.md)
+    * [3.23：备忘录模式](design/memento.md)
     * [3.24：状态模式](design/state.md)
     * [3.25：访问者模式❌](design/visitor.md)
     * [3.26：解释器模式❌](design/interpreter.md)
