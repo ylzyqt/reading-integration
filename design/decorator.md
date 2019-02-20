@@ -97,6 +97,7 @@ public class ClientB {
 ```
 
 ```
-优点: 关于输出日志的部分被统一在了ExternalDecoratorUtil中，如果需要做什么变更，整个系统只需要变更此处即可
+优点: 关于输出日志的部分被统一在了ExternalDecoratorUtil中，如果需要做什么变更，
+整个系统只需要变更此处即可
 ```
 

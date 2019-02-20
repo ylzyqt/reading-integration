@@ -25,7 +25,7 @@
     * [3.9：缺省适配模式](design/defaultAdapter.md)
     * [3.10：合成模式](design/composite.md)
     * [3.11：装饰模式](design/decorator.md)
-    * [3.12：代理模式❌](design/proxy.md)
+    * [3.12：代理模式](design/proxy.md)
     * [3.13：享元模式❌](design/flyweight.md)
     * [3.14：门面模式❌](design/facade.md)
     * [3.15：桥梁模式❌](design/bridge.md)
