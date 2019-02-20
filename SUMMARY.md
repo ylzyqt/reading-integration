@@ -14,7 +14,7 @@
 * [2. 关于工作的一些总结](worksummary/worksummary.md)
     * [2.1：关于工作的一些忠告](worksummary/advice.md)
 * [3. 设计模式](design/design.md)
-    * [3.1：简单工厂❌](design/simplefactory.md)
+    * [3.1：简单工厂](design/simplefactory.md)
     * [3.2：工厂方法❌](design/factory.md)
     * [3.3：抽象工厂❌](design/abstractfactory.md)
     * [3.4：单例模式](design/singletom.md)
