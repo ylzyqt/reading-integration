@@ -28,7 +28,7 @@
     * [3.12：代理模式](design/proxy.md)
     * [3.13：享元模式](design/flyweight.md)
     * [3.14：门面模式](design/facade.md)
-    * [3.15：桥梁模式❌](design/bridge.md)
+    * [3.15：桥梁模式](design/bridge.md)
     * [3.16：不变模式](design/immutable.md)
     * [3.17：策略模式](design/strategy.md)
     * [3.18：模版方法](design/template.md)
