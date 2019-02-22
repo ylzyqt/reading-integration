@@ -7,10 +7,13 @@
 ### 1: 业务背景
 
 ```
-当业务字段的变更,需要通知到各个业务的时候,需要发送消息队列,发送的时候,需要可能有多个消息队列
-- kafka
-- rabbitmq
-- activemq
+涉及到用户的项目里面，往往都有个环节,发送短信, 假设公司共签署了3个供应商的短信通道，
+分别为A,B,C 通道，根据对方的稳定性，排序从高到低为 A->B-C ,所以具备以下特性:
+1: A->B-C 的顺序是固定的，这是按照稳定性排序得出的结论
+2: 同一条短信，只会在A,B,C 中有一个通道来发送，不会出现多个发送的场景
+3: 这里有个健康度，根据发送的成功率、发送的耗时等因素得出的，命名为状态因子
+执行的结果就是，优先由A发送，加入某天A发生了故障，那么系统得自动切换到B,如果B因为压力的原因，
+那么自动切换到C 由此起到一个分流的作用
 ```
 
 
@@ -19,25 +22,25 @@
 
 ```java
 public class OldSender {
-    public static final int KAFKA = 0;
-    public static final int RABBITMQ = 1;
-    public static final int ACTIVEMQ = 2;
+    public static final int CHANNEL_A = 0;
+    public static final int CHANNEL_B = 1;
+    public static final int CHANNEL_C = 2;
 
     public static void main(String[] args) {
         OldSender oldSender = new OldSender();
-        oldSender.send(KAFKA);
+        oldSender.send(CHANNEL_A);
     }
-    
+
     public void send(int sendType) {
         switch (sendType) {
-            case KAFKA:
-                System.out.println("发送Kafka消息");
+            case CHANNEL_A:
+                System.out.println("发送A通道消息");
                 break;
-            case RABBITMQ:
-                System.out.println("发送RabbitMq消息");
+            case CHANNEL_B:
+                System.out.println("发送B通道消息");
                 break;
-            case ACTIVEMQ:
-                System.out.println("发送activeMq消息");
+            case CHANNEL_C:
+                System.out.println("发送C通道消息");
                 break;
             default:
                 System.out.println("未知发送渠道");
@@ -57,152 +60,127 @@ public class OldSender {
 ### 3: 状态模式的做法
 
 ```java
-/***
- * 抽象父类,用以表面发送的行为
- **/
-public abstract class State {
-    StateContext stateContext;
-    public State(StateContext stateContext) {
-        this.stateContext = stateContext;
+/**
+ * 获取健康状态
+ */
+public class SmsChannelHealthyUtils {
+    private static Random random = new Random();
+    public static int getHealthyState() {
+        return random.nextInt(100);
     }
+}
+
+public abstract class SmsChannel {
+
+    protected SmsContext smsContext;
+
+    public SmsChannel(SmsContext smsContext) {
+        this.smsContext = smsContext;
+    }
+
     abstract void send();
 }
 
-/***
- * 发送kafka 的具体实践类
- **/
-public class StateOfKafka extends State {
-    public StateOfKafka(StateContext stateContext) {
-        super(stateContext);
-    }
-    @Override
-    public void send() {
-        if (ConfigUtils.isKafakEnable()) {
-            System.out.println("发送Kafka消息");
-        } else {
-            stateContext.setState(stateContext.stateOfRabbitMq);
-            stateContext.send();
-        }
+public class SmsChannelA extends SmsChannel {
 
+    public SmsChannelA(SmsContext smsContext) {
+        super(smsContext);
+    }
+
+    @Override
+    void send() {
+        if (SmsChannelHealthyUtils.getHealthyState() < 60) {
+            System.out.println("通过A渠道发送");
+        } else {
+            smsContext.setSmsChannel(smsContext.getSmsChannelB());
+            smsContext.send();
+        }
     }
 }
 
-/***
- * 发送rabbitmq的具体实现类
- **/
-public class StateOfRabbitMq extends State {
-    public StateOfRabbitMq(StateContext stateContext) {
-        super(stateContext);
+
+public class SmsChannelB extends SmsChannel{
+
+    public SmsChannelB(SmsContext smsContext) {
+        super(smsContext);
     }
+
     @Override
-    public void send() {
-        if(ConfigUtils.isRabbitMqEnable()){
-            System.out.println("发送RabbitMq消息");
+    void send() {
+        if(SmsChannelHealthyUtils.getHealthyState() < 90){
+            System.out.println("通过B渠道发送");
         }else{
-            stateContext.setState(stateContext.stateOfActiveMq);
-            stateContext.send();
-
+            smsContext.setSmsChannel(smsContext.getSmsChannelC());
+            smsContext.send();
         }
-
     }
 }
 
-/***
- * 发送activemq的具体实现类
- **/
-public class StateOfActiveMq extends State {
-    public StateOfActiveMq(StateContext stateContext) {
-        super(stateContext);
-    }
-    @Override
-    public void send() {
-        if (ConfigUtils.isActiveMqEnable()) {
-            System.out.println("发送activeMq消息");
-        } else {
-            stateContext.setState(stateContext.stateOfNoNe);
-            stateContext.send();
-        }
+public class SmsChannelC extends SmsChannel {
 
-    }
-}
-
-/***
- * 未知发送对象类
- **/
-public class StateOfNone extends State {
-    public StateOfNone(StateContext stateContext) {
-        super(stateContext);
+    public SmsChannelC(SmsContext smsContext) {
+        super(smsContext);
     }
 
     @Override
-    public void send() {
-        System.out.println("未知发送渠道");
+    void send() {
+        System.out.println("通过缺省C渠道发送");
     }
 }
 
-/***
- * 控制类
- **/
-public class StateContext {
-    private State state;
-    public State stateOfKafka = new StateOfKafka(this);
-    public State stateOfActiveMq = new StateOfActiveMq(this);
-    public State stateOfRabbitMq = new StateOfRabbitMq(this);
-    public State stateOfNoNe = new StateOfNone(this);
+
+public class SmsContext {
+    private SmsChannel smsChannel;
+
+    private SmsChannel smsChannelA = new SmsChannelA(this);
+    private SmsChannel smsChannelB = new SmsChannelB(this);
+    private SmsChannel smsChannelC = new SmsChannelC(this);
+
+    public SmsContext() {
+        this.smsChannel = smsChannelA;
+    }
 
     public void send() {
-        state.send();
+        this.smsChannel.send();
     }
 
-    public void setState(State state) {
-        this.state = state;
+    public SmsChannel getSmsChannel() {
+        return smsChannel;
     }
 
-    public State getStateOfKafka() {
-        return stateOfKafka;
+    public void setSmsChannel(SmsChannel smsChannel) {
+        this.smsChannel = smsChannel;
     }
 
-    public State getStateOfActiveMq() {
-        return stateOfActiveMq;
+    public SmsChannel getSmsChannelA() {
+        return smsChannelA;
     }
 
-    public State getStateOfRabbitMq() {
-        return stateOfRabbitMq;
+    public SmsChannel getSmsChannelB() {
+        return smsChannelB;
     }
 
-    public State getStateOfNoNe() {
-        return stateOfNoNe;
+    public SmsChannel getSmsChannelC() {
+        return smsChannelC;
     }
 }
 
-/***
- * 调用类
- **/
 public class Client {
+
     public static void main(String[] args) {
-        StateContext stateContext = new StateContext();
-        stateContext.setState(stateContext.getStateOfKafka());
-        stateContext.send();
+        SmsContext smsContext;
+        for (int i = 0; i < 10; i++) {
+            smsContext = new SmsContext();
+            smsContext.send();
+        }
+
     }
 }
-
-/***
- * 配置类,该类可以从配置中心、从外部配置中获取
- **/
-public class ConfigUtils {
-
-    public static boolean isKafakEnable() { return false; }
-
-    public static boolean isRabbitMqEnable() { return false;}
-
-    public static boolean isActiveMqEnable() { return false;}
-}
-
 ```
 
 ```
 优点: 类分离，具体的类实现具体的功能
-     具体的实现类具备先后顺序、即在编写代码的时候，就已经知道按照kafka-rabbitmq-activemq
+     具体的实现类具备先后顺序、即在编写代码的时候，就已经知道按照A->B-C
      的顺序进行发送
 ```
 
