@@ -38,7 +38,7 @@
     * [3.22：命令模式](design/command.md)
     * [3.23：备忘录模式](design/memento.md)
     * [3.24：状态模式](design/state.md)
-    * [3.25：访问者模式❌](design/visitor.md)
-    * [3.26：解释器模式❌](design/interpreter.md)
+    * [3.25：访问者模式](design/visitor.md)
+    * [3.26：解释器模式](design/interpreter.md)
     * [3.27：调停者模式](design/mediator.md)
 
