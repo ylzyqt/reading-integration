@@ -45,4 +45,9 @@
     * [4.1：java技术体系](jvm/jdk.md)
     * [4.2：工具准备](jvm/tools.md)
     * [4.3：java虚拟机](jvm/java_jvm.md)
+    * [4.4：内存](jvm/memory.md)
+        * [4.4.1：常量](jvm/memory_constants.md)
+        * [4.4.2：对象的创建](jvm/memory_create_object.md)
+        * [4.4.3：对象的结构](jvm/memory_object_struct.md)
+        * [4.4.4：对象的访问定位](jvm/memory_object_Positioning.md)
 
