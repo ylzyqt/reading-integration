@@ -50,4 +50,10 @@
         * [4.4.2：对象的创建](jvm/memory_create_object.md)
         * [4.4.3：对象的结构](jvm/memory_object_struct.md)
         * [4.4.4：对象的访问定位](jvm/memory_object_Positioning.md)
+    * [4.5：内存分配](jvm/memory_distribution.md)
+    * [4.6：垃圾回收机制](jvm/garbage_collection.md)
+        * [4.6.1：怎么判断垃圾对象](jvm/garbage_judge.md)
+        * [4.6.2：怎么回收](jvm/garbage_collection_how.md)
+        * [4.6.3：常见垃圾收集器](jvm/garbage_collection_sample.md)
+        * [4.6.4：何时回收](jvm/garbage_collection_when.md)
 
