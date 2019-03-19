@@ -18,8 +18,9 @@
   - 新生代
     - eden 伊甸园
     - survival 存活区
-    - tenured gen 老年区
-  - 老年代
+  - tenured gen 老年区
+  - perm gen 持久区
+ 
 ```
 
 
